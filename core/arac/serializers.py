@@ -1,4 +1,4 @@
-from arac.models import Car,Bicycle,Motorcycle,CarReservation
+from arac.models import Car,Bicycle,Motorcycle,CarReservation,Favorite
 from rest_framework import serializers
 
 class CarSerializers(serializers.ModelSerializer):
@@ -23,22 +23,13 @@ class CarReservationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class FavoriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favorite
+        fields = ('id', 'user', 'content_type', 'object_id')
 
-# class FotoCarSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Car
-#         fields =['foto']
 
 
-# class FotoMototrSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Motorcycle
-#         fields =['foto']
-
-# class FotoBicycleSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Bicycle
-#         fields =['foto']
 
 
 
