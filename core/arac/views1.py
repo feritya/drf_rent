@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from arac.serializers import BicycleSerializers,MotorcycleSerializers,CarSerializers,CarReservationSerializer,FavoriteSerializer
 from rest_framework import viewsets
@@ -12,7 +11,6 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from django.contrib.contenttypes.models import ContentType
 from rest_framework.decorators import api_view
-
 
 
 
@@ -43,85 +41,6 @@ class FavoriteViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         content_type = ContentType.objects.get_for_model(self.request.data.get('content_type'))
         serializer.save(user=self.request.user, content_type=content_type, object_id=self.request.data.get('object_id'))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
