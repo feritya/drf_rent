@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.shortcuts import get_object_or_404
+from rest_framework.generics import get_object_or_404
 from arac.serializers import( 
                                             BicycleSerializers,
                                             MotorcycleSerializers,
@@ -23,6 +23,7 @@ import json
 from datetime import date
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
+from rest_framework.views import APIView
 from django.contrib.contenttypes.models import ContentType
 from rest_framework.decorators import api_view
 
@@ -30,34 +31,59 @@ from rest_framework.decorators import api_view
 
 class MotorcycleAPIView(viewsets.ModelViewSet) :
     # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    serializer_class=         MotorcycleSerializers
-    queryset =                 Motorcycle.objects.all()
+    serializer_class           =MotorcycleSerializers
+    queryset                    =Motorcycle.objects.all()
 
 
 
 class BicycleAPIView(viewsets.ModelViewSet) :
     # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    serializer_class=         BicycleSerializers
-    queryset =                 Bicycle.objects.all()
+    serializer_class           =BicycleSerializers
+    queryset                    =Bicycle.objects.all()
 
 
 
 class CarAPIView(viewsets.ModelViewSet) :
     # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    serializer_class=         CarSerializers
-    queryset =                  Car.objects.all()
+    serializer_class           =CarSerializers
+    queryset                    =Car.objects.all()
+
+
+class PastRezervations(APIView):
+    def  get(self, request):
+            reservations = CarReservation.objects.all()
+            serializer = CarPastReservationSerializer(reservations)
+            return Response(serializer.data)
+
+
+
+class PastRezervationsDetail(APIView):
+    def  get_object(self,pk):
+            reservations_instance =get_object_or_404(CarReservation)
+            return reservations_instance
+    def  get(self, request,pk):
+            reservations = CarReservation.objects.all()
+            serializer = CarPastReservationSerializer(reservations) 
+            return Response(serializer.data)
+
+
 
 class FavoriteViewSet(viewsets.ModelViewSet):
-    queryset = Favorite.objects.all()
-    serializer_class = FavoriteSerializer
+    queryset                    = Favorite.objects.all()
+    serializer_class           = FavoriteSerializer
     def perform_create(self, serializer):
         content_type = ContentType.objects.get_for_model(self.request.data.get('content_type'))
         serializer.save(user=self.request.user, content_type=content_type, object_id=self.request.data.get('object_id'))
 
-class CarPastRezervationsAPIView(viewsets.ModelViewSet) :
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    serializer_class=         CarPastReservationSerializer
-    queryset =                  CarReservation.objects.all()
+
+
+
+
+ 
+
+
+
+
 
 
 

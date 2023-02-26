@@ -32,7 +32,7 @@ class CarReservation(models.Model):
     issue_date      = models.DateField()
     return_date    = models.DateField()
     rez_date         = models.DateField(auto_now_add=True)
-    total_price    = models.IntegerField()
+    total_price      = models.IntegerField()
     
     def __str__(self):
         return str(self.customer) + "- " + str(self.car)

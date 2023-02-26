@@ -2,7 +2,7 @@ from .models import CarReservation
 
 from rest_framework import viewsets
 
-from .serializers import CarReservationSerializer
+from arac.serializers import CarReservationSerializer,CarPastReservationSerializer
 from datetime import date
 from rest_framework.response import Response
 from rest_framework import status
@@ -34,5 +34,7 @@ class CarRezervationsViews(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+class PastRezData(viewsets.ModelViewSet):
+    queryset = CarReservation.objects.all()
+    serializer_class = CarPastReservationSerializer
 

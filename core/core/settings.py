@@ -54,7 +54,8 @@ INSTALLED_APPS = [
 
 SITE_ID =1
 REST_USE_JWT = True
-
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -144,7 +145,9 @@ MEDİA_ROOT ='uploads'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
     ]
 }
